@@ -11,7 +11,7 @@ const CreatePromt = () => {
   const [post, setPost] = useState({ prompt: "", tag: "" });
 
   const router = useRouter();
-  const { data: session } = useSession;
+  const { data: session } = useSession();
 
   const createPromt = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const CreatePromt = () => {
       });
 
       if (response.ok) {
-        Router.push("/");
+        router.push("/");
       }
     } catch (error) {
       console.log(error);
