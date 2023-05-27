@@ -8,11 +8,13 @@ const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className="mt-16 prompt_layout">
       {data.map((post) => {
-        <PromptCard
-          key={post.id}
-          post={post}
-          handleTagClick={handleTagClick}
-        />;
+        return (
+          <PromptCard
+            key={post.id}
+            post={post}
+            handleTagClick={handleTagClick}
+          />
+        );
       })}
     </div>
   );
@@ -21,9 +23,16 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
+  console.log("🚀 ~ file: Feed.jsx:26 ~ Feed ~ posts:", posts);
 
-  const handleSearchChange = (e) => {};
-
+  const handleSearchPosts = (posts) => {
+    return posts.filter((post) => {
+      return (
+        post?.creator?.username.includes(searchText) ||
+        post?.tag.includes(searchText)
+      );
+    });
+  };
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("/api/prompt");
@@ -40,12 +49,17 @@ const Feed = () => {
           type="text"
           placeholder="Search for a tag or a username"
           value={searchText}
-          onChange={handleSearchChange}
+          onChange={(e) => setSearchText(e.target.value)}
           required
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList
+        data={handleSearchPosts(posts)}
+        handleTagClick={(tag) => {
+          setSearchText(tag);
+        }}
+      />
     </section>
   );
 };
