@@ -14,7 +14,7 @@ const ChangePrompt = () => {
 
   useEffect(() => {
     const getPromptDetails = async () => {
-      const response = await fetch(`/apiprompt/${promptId}`);
+      const response = await fetch(`/api/prompt/${promptId}`);
 
       const data = await response.json();
       setPost({
@@ -34,7 +34,6 @@ const ChangePrompt = () => {
     if (!promptId) {
       return alert("Prompt ID not found");
     }
-
     try {
       const response = await fetch(`/api/prompt/${promptId}`, {
         method: "PATCH",

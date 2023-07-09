@@ -23,7 +23,6 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
-  console.log("🚀 ~ file: Feed.jsx:26 ~ Feed ~ posts:", posts);
 
   const handleSearchPosts = (posts) => {
     return posts.filter((post) => {
